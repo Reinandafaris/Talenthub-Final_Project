@@ -1,5 +1,7 @@
+import dotenv from "dotenv";
+dotenv.config();
+import mongoose from "mongoose";
 import express from "express";
-import connectDB from "./lib/connectDB.js";
 import menuRouter from "./routes/menu.route.js";
 import categoryRouter from "./routes/category.route.js";
 import detailRouter from "./routes/detail.route.js";
@@ -23,7 +25,18 @@ app.use((error, req, res, next) => {
   });
 });
 
-app.listen(8000, () => {
-  connectDB();
-  console.log("Server is running");
-});
+const PORT = process.env.PORT || 5300;
+
+mongoose
+  .connect(process.env.MONGO)
+  .then(() => {
+    console.log("Connected to MongoDB");
+    app.listen(PORT, () => {
+      console.log(
+        `Server is running on port http://localhost:${PORT}`
+      );
+    });
+  })
+  .catch((error) => {
+    console.error("Failed to connect to MongoDB:", error);
+  });
