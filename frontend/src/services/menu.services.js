@@ -1,9 +1,11 @@
 import axios from "axios";
 
+const API_URL = import.meta.env.VITE_URL_API;
+
 export const getAllCategories = async (callback, setIsLoading) => {
   setIsLoading(true);
   try {
-    const res = await axios.get("http://localhost:8000/category");
+    const res = await axios.get(`${API_URL}/category`);
     callback(res.data);
   } catch (err) {
     console.log(err);
@@ -15,7 +17,7 @@ export const getAllCategories = async (callback, setIsLoading) => {
 export const getAllMenu = async (callback, setIsLoading) => {
   setIsLoading(true);
   try {
-    const res = await axios.get("http://localhost:8000/menu");
+    const res = await axios.get(`${API_URL}/menu`);
     callback(res.data);
   } catch (err) {
     console.log(err);
@@ -27,7 +29,7 @@ export const getAllMenu = async (callback, setIsLoading) => {
 export const getAllDetail = async (callback, setIsLoading) => {
   setIsLoading(true);
   try {
-    const res = await axios.get("http://localhost:8000/detail");
+    const res = await axios.get(`${API_URL}/detail`);
     callback(res.data);
   } catch (err) {
     console.log(err);
